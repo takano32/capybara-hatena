@@ -1,9 +1,7 @@
 require "capybara/hatena/version"
+require "capybara/hatena/client"
 
 module Capybara
   module Hatena
-    def self.greet
-      'Hi.'
-    end
   end
 end

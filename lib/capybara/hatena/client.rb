@@ -5,7 +5,6 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'selenium/webdriver'
-require 'nokogiri'
 
 Capybara.register_driver :poltergeist do |app|
   # Capybara::Poltergeist::Driver.new(app, inspector: true)
@@ -49,6 +48,13 @@ module Capybara
     # Capybara::Hatena::Client
     class Client
       include Capybara::DSL
+
+      def self.start(login_name = ENV['LOGIN_NAME'], password = ENV['PASSWORD'], &block)
+        require 'time'
+        Capybara.using_session Time.now.iso8601(3) do
+          block.yield(Capybara::Hatena::Client.new)
+        end
+      end
 
       def initialize(login_name = ENV['LOGIN_NAME'], password = ENV['PASSWORD'])
         @login_name = login_name
@@ -122,10 +128,16 @@ module Capybara
 end
 
 if $PROGRAM_NAME == __FILE__
-  client = Capybara::Hatena::Client.new
-  client.login
-  client.account! 'chatwork'
-  client.get('http://go.chatwork.com/')
-  client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
+  #client = Capybara::Hatena::Client.new
+  #client.login
+  #client.account! 'chatwork'
+  #client.get('http://go.chatwork.com/')
+  #client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
+  Capybara::Hatena::Client.start do |client|
+    client.login
+    client.account! 'chatwork'
+    client.get('http://go.chatwork.com/')
+    client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
+  end
 end
 
