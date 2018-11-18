@@ -58,7 +58,9 @@ module Capybara
       def login
         url = 'https://www.hatena.ne.jp/login'
         uri = URI.parse url
+
         visit uri
+
         fill_in 'login-name', with: @login_name
         fill_in 'password', with: @password
         find('input[type=submit]').click
@@ -67,7 +69,9 @@ module Capybara
       def account!(id)
         url = 'https://www.hatena.ne.jp/my/config/account'
         uri = URI.parse url
+
         visit uri
+
         forms = find_all(:xpath, '//form')
         forms.each do |form|
           inputs = form.find_all(:xpath, 'input', visible: false)
@@ -83,7 +87,9 @@ module Capybara
       def get(url)
         entry_url = 'https://b.hatena.ne.jp/my/add'
         uri = URI.parse entry_url
+
         visit uri
+
         fill_in 'url', with: url
         all('input[type=submit]').last.click
 
@@ -97,14 +103,18 @@ module Capybara
         comment
       end
 
-      def post(url)
+      def post(url, comment)
         entry_url = 'https://b.hatena.ne.jp/my/add'
         uri = URI.parse entry_url
+
         visit uri
+
         fill_in 'url', with: url
         all('input[type=submit]').last.click
+
         fill_in 'annotation', with: ''
-        fill_in 'annotation', with: 'foobar'
+        fill_in 'annotation', with: comment
+        all('input[type=submit]').last.click
       end
 
     end
@@ -116,6 +126,6 @@ if $PROGRAM_NAME == __FILE__
   client.login
   client.account! 'chatwork'
   client.get('http://go.chatwork.com/')
-  client.post('http://go.chatwork.com/')
+  client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
 end
 
