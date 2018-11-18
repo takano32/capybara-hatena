@@ -61,11 +61,6 @@ class Capybara::Hatena::Client
     end
   end
 
-  def visit_with_wait(uri)
-    visit uri
-    sleep 3
-  end
-
   def initialize(login_name = ENV['LOGIN_NAME'], password = ENV['PASSWORD'])
     @login_name = login_name
     @password = password
@@ -75,7 +70,8 @@ class Capybara::Hatena::Client
     url = 'https://www.hatena.ne.jp/login'
     uri = URI.parse url
 
-    visit_with_wait uri
+    visit uri
+    sleep 5
 
     fill_in 'login-name', with: @login_name
     fill_in 'password', with: @password
@@ -86,7 +82,8 @@ class Capybara::Hatena::Client
     url = 'https://www.hatena.ne.jp/my/config/account'
     uri = URI.parse url
 
-    visit_with_wait uri
+    visit uri
+    sleep 5
 
     forms = find_all(:xpath, '//form')
     forms.each do |form|
@@ -106,7 +103,7 @@ if $PROGRAM_NAME == __FILE__
   Capybara::Hatena::Client.start do |client|
     client.login
     client.account! 'chatwork'
-    sleep 3
+    sleep 5
   end
 end
 
