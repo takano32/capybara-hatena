@@ -43,7 +43,7 @@ if ENV['HEADLESS']
   Capybara.javascript_driver = :headless_chrome
 end
 
-module Cpybara
+module Capybara
   module Hatena
     class Client
     end
