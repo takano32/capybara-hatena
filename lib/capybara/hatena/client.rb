@@ -118,8 +118,11 @@ module Capybara
         fill_in 'url', with: url
         all('input[type=submit]').last.click
 
-        fill_in 'annotation', with: ''
-        fill_in 'annotation', with: comment
+        # fill_in 'annotation', with: ''
+        # fill_in 'annotation', with: comment
+        textarea = all(:xpath, '//textarea').last
+        textarea.set ''
+        textarea.set comment
         all('input[type=submit]').last.click
       end
 
@@ -128,11 +131,6 @@ module Capybara
 end
 
 if $PROGRAM_NAME == __FILE__
-  #client = Capybara::Hatena::Client.new
-  #client.login
-  #client.account! 'chatwork'
-  #client.get('http://go.chatwork.com/')
-  #client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
   Capybara::Hatena::Client.start do |client|
     client.login
     client.account! 'chatwork'
