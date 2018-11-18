@@ -23,9 +23,17 @@ class Capybara::Hatena::Bookmark < Capybara::Hatena::Client
     fill_in 'url', with: url
     all('input[type=submit]').last.click
 
-    users = find(:xpath, '//*[@id="container"]/div/div[2]/div/p[1]/a/span').text.to_i
-    tags = all(:xpath, '//*[@id="container"]/div/div[3]/div/div/div/ul[2]/li').map do |e|
-      e.text
+    users = 0
+    tags = []
+    begin
+      users = find(:xpath, '//*[@id="container"]/div/div[2]/div/p[1]/a/span').text.to_i
+    rescue Capybara::ElementNotFound => e
+      users = 0
+      e
+    end
+
+    tags = all(:xpath, '//*[@id="container"]/div/div[3]/div/div/div/ul[2]/li').map do |elm|
+      elm.text
     end
 
     [users, tags]
