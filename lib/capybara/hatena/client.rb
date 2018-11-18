@@ -99,12 +99,12 @@ module Capybara
         fill_in 'url', with: url
         all('input[type=submit]').last.click
 
-        users = find(:xpath, '//*[@id="container"]/div/div[2]/div/p[1]/a/span').text.to_i
-        tags = all(:xpath, '//*[@id="container"]/div/div[3]/div/div/div/ul[2]/li').map do |e|
-          e.text
-        end
+        #users = find(:xpath, '//*[@id="container"]/div/div[2]/div/p[1]/a/span').text.to_i
+        #tags = all(:xpath, '//*[@id="container"]/div/div[3]/div/div/div/ul[2]/li').map do |e|
+        #  e.text
+        #end
         
-        [users, tags]
+        #[users, tags]
         comment = find(:xpath, '//*[@id="container"]/div/div[3]/div/div/form/div[1]/textarea').text
         comment
       end
