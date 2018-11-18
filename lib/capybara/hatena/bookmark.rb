@@ -18,7 +18,7 @@ class Capybara::Hatena::Bookmark < Capybara::Hatena::Client
     entry_url = 'https://b.hatena.ne.jp/my/add'
     uri = URI.parse entry_url
 
-    visit uri
+    visit_wit_wait uri
 
     fill_in 'url', with: url
     all('input[type=submit]').last.click
@@ -45,7 +45,7 @@ class Capybara::Hatena::Bookmark < Capybara::Hatena::Client
     entry_url = 'https://b.hatena.ne.jp/my/add'
     uri = URI.parse entry_url
 
-    visit uri
+    visit_wit_wait uri
 
     fill_in 'url', with: url
     all('input[type=submit]').last.click
