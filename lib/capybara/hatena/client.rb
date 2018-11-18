@@ -57,7 +57,7 @@ class Capybara::Hatena::Client
   def self.start(login_name = ENV['LOGIN_NAME'], password = ENV['PASSWORD'], &block)
     require 'time'
     Capybara.using_session Time.now.iso8601(3) do
-      block.yield(Capybara::Hatena::Client.new)
+      block.yield(self.new)
     end
   end
 
@@ -95,49 +95,13 @@ class Capybara::Hatena::Client
     end
   end
 
-  def get(url)
-    entry_url = 'https://b.hatena.ne.jp/my/add'
-    uri = URI.parse entry_url
-
-    visit uri
-
-    fill_in 'url', with: url
-    all('input[type=submit]').last.click
-
-    #users = find(:xpath, '//*[@id="container"]/div/div[2]/div/p[1]/a/span').text.to_i
-    #tags = all(:xpath, '//*[@id="container"]/div/div[3]/div/div/div/ul[2]/li').map do |e|
-    #  e.text
-    #end
-
-    #[users, tags]
-    comment = find(:xpath, '//*[@id="container"]/div/div[3]/div/div/form/div[1]/textarea').text
-    comment
-  end
-
-  def post(url, comment)
-    entry_url = 'https://b.hatena.ne.jp/my/add'
-    uri = URI.parse entry_url
-
-    visit uri
-
-    fill_in 'url', with: url
-    all('input[type=submit]').last.click
-
-    # fill_in 'annotation', with: ''
-    # fill_in 'annotation', with: comment
-    textarea = all(:xpath, '//textarea').last
-    textarea.set ''
-    textarea.set comment
-    all('input[type=submit]').last.click
-  end
 end
 
 if $PROGRAM_NAME == __FILE__
   Capybara::Hatena::Client.start do |client|
     client.login
     client.account! 'chatwork'
-    client.get('http://go.chatwork.com/')
-    client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
+    sleep 3
   end
 end
 
