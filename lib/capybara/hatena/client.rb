@@ -8,7 +8,11 @@ require 'selenium/webdriver'
 
 Capybara.register_driver :poltergeist do |app|
   # Capybara::Poltergeist::Driver.new(app, inspector: true)
-  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+  opts = {
+    js_errors: false,
+    phantomjs_logger: "/dev/null",
+  }
+  Capybara::Poltergeist::Driver.new(app, opts)
 end
 
 Capybara.register_driver :chrome do |app|
