@@ -10,7 +10,7 @@ Capybara.register_driver :poltergeist do |app|
   # Capybara::Poltergeist::Driver.new(app, inspector: true)
   opts = {
     js_errors: false,
-    phantomjs_logger: "/dev/null",
+    phantomjs_logger: File.open(IO::NULL),
   }
   Capybara::Poltergeist::Driver.new(app, opts)
 end
