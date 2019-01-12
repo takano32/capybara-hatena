@@ -36,7 +36,7 @@ end
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
 
-if ENV['QT_QPA_PLATFORM']
+if ENV['QT_QPA_PLATFORM'] # == 'offscreen'
   Capybara.default_driver = :poltergeist
   Capybara.javascript_driver = :poltergeist
 end
