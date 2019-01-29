@@ -61,7 +61,7 @@ class Capybara::Hatena::Client
   def self.start(login_name = ENV['LOGIN_NAME'], password = ENV['PASSWORD'], &block)
     require 'time'
     Capybara.using_session Time.now.iso8601(3) do
-      block.yield(self.new)
+      block.yield(self.new(login_name, password))
     end
   end
 
