@@ -38,7 +38,8 @@ class Capybara::Hatena::Bookmark < Capybara::Hatena::Client
     end
 
     [users, tags]
-    comment = find(:xpath, '//*[@id="container"]/div/div[3]/div/div/form/div[1]/textarea').text
+    xpath = '//*[@id="container"]/div/div[1]/div[3]/div/div/form/div[1]/textarea'
+    comment = find(:xpath, xpath).text
     comment
   end
 
@@ -64,7 +65,7 @@ end
 if $PROGRAM_NAME == __FILE__
   Capybara::Hatena::Bookmark.start do |client|
     client.login
-    client.account! 'chatwork'
+    client.account! 'chatwark'
     client.get('http://go.chatwork.com/')
     client.post('http://go.chatwork.com/', 'ちゃっとわ〜く…')
     sleep 3
