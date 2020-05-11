@@ -15,6 +15,12 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, opts)
 end
 
+Capybara.register_driver :firefox do |app|
+  # Capybara::Poltergeist::Driver.new(app, inspector: true)
+  # Capybara::Poltergeist::Driver.new(app, js_errors: false)
+  Capybara::Selenium::Driver.new(app, browser: :firefox)
+end
+
 Capybara.register_driver :chrome do |app|
   # Capybara::Poltergeist::Driver.new(app, inspector: true)
   # Capybara::Poltergeist::Driver.new(app, js_errors: false)
@@ -35,6 +41,9 @@ end
 
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
+
+# Capybara.default_driver = :firefox
+# Capybara.javascript_driver = :firefox
 
 if ENV['QT_QPA_PLATFORM'] # == 'offscreen'
   Capybara.default_driver = :poltergeist
