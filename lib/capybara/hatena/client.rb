@@ -84,12 +84,12 @@ class Capybara::Hatena::Client
     uri = URI.parse url
 
     visit uri
-    sleep 2
 
     fill_in 'login-name', with: @login_name
     fill_in 'password', with: @password
-    sleep 1
-    find('input[type=submit]').click
+
+    sleep 10
+    find('#login-button').click
   end
 
   def account!(id)
